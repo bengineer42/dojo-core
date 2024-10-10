@@ -57,7 +57,7 @@ pub impl ModelInContractModelKeyImpl of dojo::model::members::key::KeyParserTrai
 pub impl ModelInContractKeyImpl = dojo::model::members::key::KeyImpl<ModelInContractKeyType>;
 
 // Impl to get the static attributes of a model
-mod model_in_contract_attributes {
+pub mod model_in_contract_attributes {
     use super::ModelInContract;
     pub impl ModelInContractAttributesImpl<T> of dojo::model::ModelAttributes<T>{
     
@@ -144,11 +144,11 @@ pub impl ModelInContractEntitySerdeImpl of dojo::model::entity::EntitySerde<Mode
 }
 
 
-// pub impl ModelInContractModelImpl = dojo::model::model::Model<ModelInContract>;
-// pub impl ModelInContractStore = dojo::model::model::ModelStoreImpl<ModelInContract, ModelInContractKeyType>;
+pub impl ModelInContractModelImpl = dojo::model::model::ModelImpl<ModelInContract>;
+pub impl ModelInContractStore = dojo::model::model::ModelStoreImpl<ModelInContract>;
 
-// pub impl ModelInContractEntityImpl = dojo::model::entity::Entity<ModelInContractEntity>;
-// pub impl ModelInContractEntityStore = dojo::model::entity::EntityStoreImpl<ModelInContractEntity>;
+pub impl ModelInContractEntityImpl = dojo::model::entity::EntityImpl<ModelInContractEntity>;
+pub impl ModelInContractEntityStore = dojo::model::entity::EntityStoreImpl<ModelInContractEntity>;
 
 
 //////

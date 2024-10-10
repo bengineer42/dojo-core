@@ -67,7 +67,7 @@ pub impl PositionModelKeyImpl of dojo::model::members::key::KeyParserTrait<Posit
 pub impl PositionKeyImpl = dojo::model::members::key::KeyImpl<PositionKeyType>;
 
 // Impl to get the static attributes of a model
-mod position_attributes {
+pub mod position_attributes {
     use super::Position;
     pub impl PositionAttributesImpl<T> of dojo::model::ModelAttributes<T>{
     
@@ -157,11 +157,11 @@ core::serde::Serde::serialize(self.y, ref serialized);
 }
 
 
-// pub impl PositionModelImpl = dojo::model::model::Model<Position>;
-// pub impl PositionStore = dojo::model::model::ModelStoreImpl<Position, PositionKeyType>;
+pub impl PositionModelImpl = dojo::model::model::ModelImpl<Position>;
+pub impl PositionStore = dojo::model::model::ModelStoreImpl<Position>;
 
-// pub impl PositionEntityImpl = dojo::model::entity::Entity<PositionEntity>;
-// pub impl PositionEntityStore = dojo::model::entity::EntityStoreImpl<PositionEntity>;
+pub impl PositionEntityImpl = dojo::model::entity::EntityImpl<PositionEntity>;
+pub impl PositionEntityStore = dojo::model::entity::EntityStoreImpl<PositionEntity>;
 
 
 //////

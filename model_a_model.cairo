@@ -57,7 +57,7 @@ pub impl ModelAModelKeyImpl of dojo::model::members::key::KeyParserTrait<ModelA,
 pub impl ModelAKeyImpl = dojo::model::members::key::KeyImpl<ModelAKeyType>;
 
 // Impl to get the static attributes of a model
-mod model_a_attributes {
+pub mod model_a_attributes {
     use super::ModelA;
     pub impl ModelAAttributesImpl<T> of dojo::model::ModelAttributes<T>{
     
@@ -144,11 +144,11 @@ pub impl ModelAEntitySerdeImpl of dojo::model::entity::EntitySerde<ModelAEntity>
 }
 
 
-// pub impl ModelAModelImpl = dojo::model::model::Model<ModelA>;
-// pub impl ModelAStore = dojo::model::model::ModelStoreImpl<ModelA, ModelAKeyType>;
+pub impl ModelAModelImpl = dojo::model::model::ModelImpl<ModelA>;
+pub impl ModelAStore = dojo::model::model::ModelStoreImpl<ModelA>;
 
-// pub impl ModelAEntityImpl = dojo::model::entity::Entity<ModelAEntity>;
-// pub impl ModelAEntityStore = dojo::model::entity::EntityStoreImpl<ModelAEntity>;
+pub impl ModelAEntityImpl = dojo::model::entity::EntityImpl<ModelAEntity>;
+pub impl ModelAEntityStore = dojo::model::entity::EntityStoreImpl<ModelAEntity>;
 
 
 //////

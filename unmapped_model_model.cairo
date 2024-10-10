@@ -57,7 +57,7 @@ pub impl UnmappedModelModelKeyImpl of dojo::model::members::key::KeyParserTrait<
 pub impl UnmappedModelKeyImpl = dojo::model::members::key::KeyImpl<UnmappedModelKeyType>;
 
 // Impl to get the static attributes of a model
-mod unmapped_model_attributes {
+pub mod unmapped_model_attributes {
     use super::UnmappedModel;
     pub impl UnmappedModelAttributesImpl<T> of dojo::model::ModelAttributes<T>{
     
@@ -144,11 +144,11 @@ pub impl UnmappedModelEntitySerdeImpl of dojo::model::entity::EntitySerde<Unmapp
 }
 
 
-// pub impl UnmappedModelModelImpl = dojo::model::model::Model<UnmappedModel>;
-// pub impl UnmappedModelStore = dojo::model::model::ModelStoreImpl<UnmappedModel, UnmappedModelKeyType>;
+pub impl UnmappedModelModelImpl = dojo::model::model::ModelImpl<UnmappedModel>;
+pub impl UnmappedModelStore = dojo::model::model::ModelStoreImpl<UnmappedModel>;
 
-// pub impl UnmappedModelEntityImpl = dojo::model::entity::Entity<UnmappedModelEntity>;
-// pub impl UnmappedModelEntityStore = dojo::model::entity::EntityStoreImpl<UnmappedModelEntity>;
+pub impl UnmappedModelEntityImpl = dojo::model::entity::EntityImpl<UnmappedModelEntity>;
+pub impl UnmappedModelEntityStore = dojo::model::entity::EntityStoreImpl<UnmappedModelEntity>;
 
 
 //////

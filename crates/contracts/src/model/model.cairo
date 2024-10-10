@@ -25,19 +25,19 @@ pub trait Model<M> {
     fn instance_layout(self: @M) -> Layout;
 }
 
-pub trait ModelStore<M, K> {
+pub trait ModelStore<M> {
     // Get a model from the world
-    fn get(self: @IWorldDispatcher, key: K) -> M;
+    fn get<K, +KeyTrait<K>, +Drop<K>>(self: @IWorldDispatcher, key: K) -> M;
     // Set a model in the world
     fn set(self: IWorldDispatcher, model: M);
     // Delete a model from the world from its key
-    fn delete(self: IWorldDispatcher, key: K);
+    fn delete<K, +KeyTrait<K>, +Drop<K>>(self: IWorldDispatcher, key: K);
     // Get a member of a model from the world
-    fn get_member<T, +MemberStore<M, T>, +Drop<T>>(
+    fn get_member<T, K, +MemberStore<M, T>, +Drop<T>, +KeyTrait<K>, +Drop<K>>(
         self: @IWorldDispatcher, member_id: felt252, key: K
     ) -> T;
     // Update a member of a model in the world
-    fn update_member<T, +MemberStore<M, T>, +Drop<T>>(
+    fn update_member<T, K, +MemberStore<M, T>, +Drop<T>, +KeyTrait<K>, +Drop<K>>(
         self: IWorldDispatcher, member_id: felt252, key: K, value: T
     );
 }
@@ -78,9 +78,9 @@ pub impl ModelImpl<M, +ModelSerde<M>, +Serde<M>, +ModelAttributes<M>> of Model<M
 }
 
 pub impl ModelStoreImpl<
-    M, K, +ModelSerde<M>, +Model<M>, +ModelAttributes<M>, +Drop<K>, +Drop<M>, +KeyTrait<K>,
-> of ModelStore<M, K> {
-    fn get(self: @IWorldDispatcher, mut key: K) -> M {
+    M, +ModelSerde<M>, +Model<M>, +ModelAttributes<M>, +Drop<M>,
+> of ModelStore<M> {
+    fn get<K, +KeyTrait<K>, +Drop<K>>(self: @IWorldDispatcher, mut key: K) -> M {
         let mut keys = KeyTrait::<K>::serialize(@key);
         let mut values = IWorldDispatcherTrait::entity(
             *self,
@@ -93,6 +93,7 @@ pub impl ModelStoreImpl<
 
     fn set(self: IWorldDispatcher, model: M) {
         let (keys, values) = ModelSerde::<M>::_keys_values(@model);
+
         IWorldDispatcherTrait::set_entity(
             self,
             ModelAttributes::<M>::selector(),
@@ -102,7 +103,7 @@ pub impl ModelStoreImpl<
         );
     }
 
-    fn delete(self: IWorldDispatcher, key: K) {
+    fn delete<K, +KeyTrait<K>, +Drop<K>>(self: IWorldDispatcher, key: K) {
         IWorldDispatcherTrait::delete_entity(
             self,
             ModelAttributes::<M>::selector(),
@@ -111,13 +112,13 @@ pub impl ModelStoreImpl<
         );
     }
 
-    fn get_member<T, +MemberStore<M, T>, +Drop<T>>(
+    fn get_member<T, K, +MemberStore<M, T>, +Drop<T>, +KeyTrait<K>, +Drop<K>>(
         self: @IWorldDispatcher, member_id: felt252, key: K
     ) -> T {
         MemberStore::<M, T>::get_member(self, member_id, KeyTrait::<K>::to_entity_id(@key))
     }
 
-    fn update_member<T, +MemberStore<M, T>, +Drop<T>>(
+    fn update_member<T, K, +MemberStore<M, T>, +Drop<T>, +KeyTrait<K>, +Drop<K>>(
         self: IWorldDispatcher, member_id: felt252, key: K, value: T
     ) {
         MemberStore::<
