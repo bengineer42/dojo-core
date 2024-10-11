@@ -1,14 +1,8 @@
 use dojo::{
-    utils::find_model_field_layout, meta::Layout, model::{attributes::ModelIndex, ModelAttributes},
-    world::{IWorldDispatcher, IWorldDispatcherTrait}
+    utils::{find_model_field_layout, serialize_inline, deserialize_unwrap}, meta::Layout,
+    model::{ModelIndex, ModelDefinition}, world::{IWorldDispatcher, IWorldDispatcherTrait}
 };
 use core::panic_with_felt252;
-
-
-pub trait MemberTrait<T> {
-    fn serialize(value: @T) -> Span<felt252>;
-    fn deserialize(values: Span<felt252>) -> T;
-}
 
 pub trait MemberStore<M, T> {
     fn get_member(self: @IWorldDispatcher, member_id: felt252, entity_id: felt252,) -> T;
@@ -52,35 +46,16 @@ fn get_serialized_member(
 }
 
 
-pub impl MemberImpl<T, +Serde<T>, +Drop<T>> of MemberTrait<T> {
-    fn serialize(value: @T) -> Span<felt252> {
-        let mut serialized = ArrayTrait::new();
-        Serde::<T>::serialize(value, ref serialized);
-        serialized.span()
-    }
-    fn deserialize(values: Span<felt252>) -> T {
-        let mut values = values.into();
-        let value = Serde::<T>::deserialize(ref values);
-        match value {
-            Option::Some(value) => value,
-            Option::None => panic!("Member: deserialization failed.")
-        }
-    }
-}
-
-
-pub impl MemberStoreImpl<
-    M, T, +ModelAttributes<M>, +MemberTrait<T>, +Drop<T>, +Drop<M>
-> of MemberStore<M, T> {
+pub impl MemberStoreImpl<M, T, +ModelDefinition<M>, +Serde<T>, +Drop<T>> of MemberStore<M, T> {
     fn get_member(self: @IWorldDispatcher, member_id: felt252, entity_id: felt252) -> T {
-        MemberTrait::<
+        deserialize_unwrap::<
             T
-        >::deserialize(
+        >(
             get_serialized_member(
                 *self,
-                ModelAttributes::<M>::selector(),
+                ModelDefinition::<M>::selector(),
                 member_id,
-                ModelAttributes::<M>::layout(),
+                ModelDefinition::<M>::layout(),
                 entity_id
             )
         )
@@ -88,11 +63,11 @@ pub impl MemberStoreImpl<
     fn update_member(self: IWorldDispatcher, member_id: felt252, entity_id: felt252, value: T,) {
         update_serialized_member(
             self,
-            ModelAttributes::<M>::selector(),
+            ModelDefinition::<M>::selector(),
             member_id,
-            ModelAttributes::<M>::layout(),
+            ModelDefinition::<M>::layout(),
             entity_id,
-            MemberTrait::<T>::serialize(@value)
+            serialize_inline::<T>(@value)
         )
     }
 }

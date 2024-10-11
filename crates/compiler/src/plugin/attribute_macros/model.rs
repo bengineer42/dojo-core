@@ -27,7 +27,7 @@ use super::element::{
 };
 use super::DOJO_MODEL_ATTR;
 
-const MODEL_CODE_STRING: &str = include_str!("./templates/model_store.generate.cairo");
+const MODEL_CODE_PATCH: &str = include_str!("./templates/model_store.generate.cairo");
 const MODEL_FIELD_CODE_STRING: &str = include_str!("./templates/model_field_store.generate.cairo");
 type ModelParameters = CommonStructParameters;
 const ENTITY_DERIVE_IGNORE: [&str; 2] = [DOJO_INTROSPECT_DERIVE, DOJO_PACKED_DERIVE];
@@ -64,7 +64,7 @@ impl DojoModel {
             .get_text(db)
             .trim()
             .to_string();
-        let model_name_snake = model_type.to_case(Case::Snake);
+        let model_type_snake = model_type.to_case(Case::Snake);
 
         let model_namespace = compute_namespace(&model_type, &parameters, namespace_config);
 
@@ -105,9 +105,7 @@ impl DojoModel {
 
         let mut values: Vec<Member> = vec![];
         let mut keys: Vec<Member> = vec![];
-
         let mut members_values: Vec<RewriteNode> = vec![];
-
         let mut key_types: Vec<String> = vec![];
         let mut key_attrs: Vec<String> = vec![];
 
@@ -197,15 +195,15 @@ impl DojoModel {
         diagnostics.extend(derive_diagnostics);
 
         let node = RewriteNode::interpolate_patched(
-            MODEL_CODE_STRING,
+            MODEL_CODE_PATCH,
             &UnorderedHashMap::from([
                 (
                     "model_type".to_string(),
                     RewriteNode::Text(model_type.clone()),
                 ),
                 (
-                    "model_name_snake".to_string(),
-                    RewriteNode::Text(model_name_snake.clone()),
+                    "model_type_snake".to_string(),
+                    RewriteNode::Text(model_type_snake.clone()),
                 ),
                 (
                     "model_namespace".to_string(),
