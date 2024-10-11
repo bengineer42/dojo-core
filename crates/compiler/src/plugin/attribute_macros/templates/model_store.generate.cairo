@@ -4,6 +4,12 @@ pub struct $model_type$Entity {
     $members_values$
 } 
 
+#[derive($derive_tags$)]
+pub struct $model_type$Values {
+    __id: felt252, // private field
+    $members_values$
+} 
+
 type $model_type$KeyType = $key_type$;
 
 pub impl $model_type$KeyParser of dojo::model::model::KeyParser<$model_type$, $model_type$KeyType>{
@@ -13,7 +19,9 @@ pub impl $model_type$KeyParser of dojo::model::model::KeyParser<$model_type$, $m
     }
 }
 
-impl $model_type$EntityKey of dojo::model::entity::EntityKey<$model_type$Entity, $model_type$KeyType> {
+impl $model_type$EntityKey of dojo::utils::TypeLink<$model_type$Entity, $model_type$KeyType> {
+}
+impl $model_type$ValuesKey of dojo::utils::TypeLink<$model_type$Values, $model_type$KeyType> {
 }
 
 // Impl to get the static attributes of a model
@@ -66,6 +74,7 @@ pub mod $model_name_snake$_attributes {
 
 pub impl $model_type$Attributes = $model_name_snake$_attributes::$model_type$AttributesImpl<$model_type$>;
 pub impl $model_type$EntityAttributes = $model_name_snake$_attributes::$model_type$AttributesImpl<$model_type$Entity>;
+pub impl $model_type$ValuesAttributes = $model_name_snake$_attributes::$model_type$AttributesImpl<$model_type$Values>;
 
 pub impl $model_type$ModelParser of dojo::model::model::ModelParser<$model_type$>{
     fn serialise_keys(self: @$model_type$) -> Span<felt252> {
@@ -97,6 +106,9 @@ pub impl $model_type$Store = dojo::model::model::ModelStoreImpl<$model_type$>;
 
 pub impl $model_type$EntityImpl = dojo::model::entity::EntityImpl<$model_type$Entity>;
 pub impl $model_type$EntityStore = dojo::model::entity::EntityStoreImpl<$model_type$Entity>;
+
+pub impl $model_type$ValuesImpl = dojo::model::values::ValuesImpl<$model_type$Values>;
+pub impl $model_type$ValuesStore = dojo::model::values::ValuesStoreImpl<$model_type$Values>;
 
 
 #[generate_trait]

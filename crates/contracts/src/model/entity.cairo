@@ -1,9 +1,8 @@
 use dojo::{
     meta::{Layout}, model::{ModelAttributes, attributes::ModelIndex, members::{MemberStore},},
-    world::{IWorldDispatcher, IWorldDispatcherTrait}, utils::entity_id_from_key,
+    world::{IWorldDispatcher, IWorldDispatcherTrait}, utils::{entity_id_from_key, TypeLink},
 };
 
-pub trait EntityKey<E, K> {}
 
 // Needs to be generated
 pub trait EntityParser<E> {
@@ -31,7 +30,7 @@ pub trait Entity<E> {
 
 pub trait EntityStore<E> {
     // Get an entity from the world
-    fn get_entity<K, +Drop<K>, +Serde<K>, +EntityKey<E, K>>(self: @IWorldDispatcher, key: K) -> E;
+    fn get_entity<K, +Drop<K>, +Serde<K>, +TypeLink<E, K>>(self: @IWorldDispatcher, key: K) -> E;
     // Get an entity from the world using its entity id
     fn get_entity_from_id(self: @IWorldDispatcher, entity_id: felt252) -> E;
     // Update an entity in the world
@@ -96,7 +95,7 @@ pub impl EntityImpl<E, +Serde<E>, +ModelAttributes<E>, +EntityParser<E>> of Enti
 }
 
 pub impl EntityStoreImpl<E, +Entity<E>, +Drop<E>> of EntityStore<E> {
-    fn get_entity<K, +Drop<K>, +Serde<K>, +EntityKey<E, K>>(self: @IWorldDispatcher, key: K) -> E {
+    fn get_entity<K, +Drop<K>, +Serde<K>, +TypeLink<E, K>>(self: @IWorldDispatcher, key: K) -> E {
         Self::get_entity_from_id(self, entity_id_from_key(@key))
     }
 

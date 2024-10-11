@@ -128,3 +128,5 @@ pub fn deserialize_unwrap<T, +Serde<T>>(mut span: Span<felt252>) -> T {
 pub fn entity_id_from_key<K, +Serde<K>>(key: @K) -> felt252 {
     entity_id_from_keys(serialize_inline::<K>(key))
 }
+
+pub trait TypeLink<T, S> {}

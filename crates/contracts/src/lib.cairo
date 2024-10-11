@@ -37,6 +37,9 @@ pub mod model {
     pub mod entity;
     pub use entity::{Entity, EntityStore};
 
+    pub mod values;
+    pub use values::{Values, ValuesStore};
+
     pub mod interface;
     pub use interface::{IModel, IModelDispatcher, IModelDispatcherTrait};
 
@@ -76,7 +79,7 @@ pub mod utils {
     pub use utils::{
         bytearray_hash, entity_id_from_keys, find_field_layout, find_model_field_layout, any_none,
         sum, combine_key, selector_from_names, serialize_inline, deserialize_unwrap,
-        entity_id_from_key
+        entity_id_from_key, TypeLink
     };
 
     pub mod descriptor;
