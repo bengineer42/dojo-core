@@ -362,6 +362,12 @@ pub struct Modelv0Entity {
 
 } 
 
+#[derive()]
+pub struct Modelv0Values {
+    pub v: Vec3,
+
+} 
+
 type Modelv0KeyType = felt252;
 
 pub impl Modelv0KeyParser of dojo::model::model::KeyParser<Modelv0, Modelv0KeyType>{
@@ -371,7 +377,9 @@ pub impl Modelv0KeyParser of dojo::model::model::KeyParser<Modelv0, Modelv0KeyTy
     }
 }
 
-impl Modelv0EntityKey of dojo::model::entity::EntityKey<Modelv0Entity, Modelv0KeyType> {
+impl Modelv0EntityKey of dojo::utils::TypeLink<Modelv0Entity, Modelv0KeyType> {
+}
+impl Modelv0ValuesKey of dojo::utils::TypeLink<Modelv0Values, Modelv0KeyType> {
 }
 
 // Impl to get the static definition of a model
@@ -424,6 +432,7 @@ pub mod modelv_0_definition {
 
 pub impl Modelv0Definition = modelv_0_definition::Modelv0DefinitionImpl<Modelv0>;
 pub impl Modelv0EntityDefinition = modelv_0_definition::Modelv0DefinitionImpl<Modelv0Entity>;
+pub impl Modelv0ValuesDefinition = modelv_0_definition::Modelv0DefinitionImpl<Modelv0Values>;
 
 pub impl Modelv0ModelParser of dojo::model::model::ModelParser<Modelv0>{
     fn serialize_keys(self: @Modelv0) -> Span<felt252> {
@@ -458,6 +467,9 @@ pub impl Modelv0Store = dojo::model::model::ModelStoreImpl<Modelv0>;
 
 pub impl Modelv0EntityImpl = dojo::model::entity::EntityImpl<Modelv0Entity>;
 pub impl Modelv0EntityStore = dojo::model::entity::EntityStoreImpl<Modelv0Entity>;
+
+pub impl Modelv0ValuesImpl = dojo::model::values::ValuesImpl<Modelv0Values>;
+pub impl Modelv0ValuesStore = dojo::model::values::ValuesStoreImpl<Modelv0Values>;
 
 
 #[generate_trait]
@@ -940,6 +952,12 @@ pub struct ModelWithBadNamespaceFormatEntity {
 
 } 
 
+#[derive()]
+pub struct ModelWithBadNamespaceFormatValues {
+    pub v: Vec3,
+
+} 
+
 type ModelWithBadNamespaceFormatKeyType = felt252;
 
 pub impl ModelWithBadNamespaceFormatKeyParser of dojo::model::model::KeyParser<ModelWithBadNamespaceFormat, ModelWithBadNamespaceFormatKeyType>{
@@ -949,7 +967,9 @@ pub impl ModelWithBadNamespaceFormatKeyParser of dojo::model::model::KeyParser<M
     }
 }
 
-impl ModelWithBadNamespaceFormatEntityKey of dojo::model::entity::EntityKey<ModelWithBadNamespaceFormatEntity, ModelWithBadNamespaceFormatKeyType> {
+impl ModelWithBadNamespaceFormatEntityKey of dojo::utils::TypeLink<ModelWithBadNamespaceFormatEntity, ModelWithBadNamespaceFormatKeyType> {
+}
+impl ModelWithBadNamespaceFormatValuesKey of dojo::utils::TypeLink<ModelWithBadNamespaceFormatValues, ModelWithBadNamespaceFormatKeyType> {
 }
 
 // Impl to get the static definition of a model
@@ -1002,6 +1022,7 @@ pub mod model_with_bad_namespace_format_definition {
 
 pub impl ModelWithBadNamespaceFormatDefinition = model_with_bad_namespace_format_definition::ModelWithBadNamespaceFormatDefinitionImpl<ModelWithBadNamespaceFormat>;
 pub impl ModelWithBadNamespaceFormatEntityDefinition = model_with_bad_namespace_format_definition::ModelWithBadNamespaceFormatDefinitionImpl<ModelWithBadNamespaceFormatEntity>;
+pub impl ModelWithBadNamespaceFormatValuesDefinition = model_with_bad_namespace_format_definition::ModelWithBadNamespaceFormatDefinitionImpl<ModelWithBadNamespaceFormatValues>;
 
 pub impl ModelWithBadNamespaceFormatModelParser of dojo::model::model::ModelParser<ModelWithBadNamespaceFormat>{
     fn serialize_keys(self: @ModelWithBadNamespaceFormat) -> Span<felt252> {
@@ -1036,6 +1057,9 @@ pub impl ModelWithBadNamespaceFormatStore = dojo::model::model::ModelStoreImpl<M
 
 pub impl ModelWithBadNamespaceFormatEntityImpl = dojo::model::entity::EntityImpl<ModelWithBadNamespaceFormatEntity>;
 pub impl ModelWithBadNamespaceFormatEntityStore = dojo::model::entity::EntityStoreImpl<ModelWithBadNamespaceFormatEntity>;
+
+pub impl ModelWithBadNamespaceFormatValuesImpl = dojo::model::values::ValuesImpl<ModelWithBadNamespaceFormatValues>;
+pub impl ModelWithBadNamespaceFormatValuesStore = dojo::model::values::ValuesStoreImpl<ModelWithBadNamespaceFormatValues>;
 
 
 #[generate_trait]
@@ -1518,6 +1542,12 @@ pub struct ModelWithShortStringNamespaceEntity {
 
 } 
 
+#[derive()]
+pub struct ModelWithShortStringNamespaceValues {
+    pub v: Vec3,
+
+} 
+
 type ModelWithShortStringNamespaceKeyType = felt252;
 
 pub impl ModelWithShortStringNamespaceKeyParser of dojo::model::model::KeyParser<ModelWithShortStringNamespace, ModelWithShortStringNamespaceKeyType>{
@@ -1527,7 +1557,9 @@ pub impl ModelWithShortStringNamespaceKeyParser of dojo::model::model::KeyParser
     }
 }
 
-impl ModelWithShortStringNamespaceEntityKey of dojo::model::entity::EntityKey<ModelWithShortStringNamespaceEntity, ModelWithShortStringNamespaceKeyType> {
+impl ModelWithShortStringNamespaceEntityKey of dojo::utils::TypeLink<ModelWithShortStringNamespaceEntity, ModelWithShortStringNamespaceKeyType> {
+}
+impl ModelWithShortStringNamespaceValuesKey of dojo::utils::TypeLink<ModelWithShortStringNamespaceValues, ModelWithShortStringNamespaceKeyType> {
 }
 
 // Impl to get the static definition of a model
@@ -1580,6 +1612,7 @@ pub mod model_with_short_string_namespace_definition {
 
 pub impl ModelWithShortStringNamespaceDefinition = model_with_short_string_namespace_definition::ModelWithShortStringNamespaceDefinitionImpl<ModelWithShortStringNamespace>;
 pub impl ModelWithShortStringNamespaceEntityDefinition = model_with_short_string_namespace_definition::ModelWithShortStringNamespaceDefinitionImpl<ModelWithShortStringNamespaceEntity>;
+pub impl ModelWithShortStringNamespaceValuesDefinition = model_with_short_string_namespace_definition::ModelWithShortStringNamespaceDefinitionImpl<ModelWithShortStringNamespaceValues>;
 
 pub impl ModelWithShortStringNamespaceModelParser of dojo::model::model::ModelParser<ModelWithShortStringNamespace>{
     fn serialize_keys(self: @ModelWithShortStringNamespace) -> Span<felt252> {
@@ -1614,6 +1647,9 @@ pub impl ModelWithShortStringNamespaceStore = dojo::model::model::ModelStoreImpl
 
 pub impl ModelWithShortStringNamespaceEntityImpl = dojo::model::entity::EntityImpl<ModelWithShortStringNamespaceEntity>;
 pub impl ModelWithShortStringNamespaceEntityStore = dojo::model::entity::EntityStoreImpl<ModelWithShortStringNamespaceEntity>;
+
+pub impl ModelWithShortStringNamespaceValuesImpl = dojo::model::values::ValuesImpl<ModelWithShortStringNamespaceValues>;
+pub impl ModelWithShortStringNamespaceValuesStore = dojo::model::values::ValuesStoreImpl<ModelWithShortStringNamespaceValues>;
 
 
 #[generate_trait]
@@ -2096,6 +2132,12 @@ pub struct ModelWithStringNamespaceEntity {
 
 } 
 
+#[derive()]
+pub struct ModelWithStringNamespaceValues {
+    pub v: Vec3,
+
+} 
+
 type ModelWithStringNamespaceKeyType = felt252;
 
 pub impl ModelWithStringNamespaceKeyParser of dojo::model::model::KeyParser<ModelWithStringNamespace, ModelWithStringNamespaceKeyType>{
@@ -2105,7 +2147,9 @@ pub impl ModelWithStringNamespaceKeyParser of dojo::model::model::KeyParser<Mode
     }
 }
 
-impl ModelWithStringNamespaceEntityKey of dojo::model::entity::EntityKey<ModelWithStringNamespaceEntity, ModelWithStringNamespaceKeyType> {
+impl ModelWithStringNamespaceEntityKey of dojo::utils::TypeLink<ModelWithStringNamespaceEntity, ModelWithStringNamespaceKeyType> {
+}
+impl ModelWithStringNamespaceValuesKey of dojo::utils::TypeLink<ModelWithStringNamespaceValues, ModelWithStringNamespaceKeyType> {
 }
 
 // Impl to get the static definition of a model
@@ -2158,6 +2202,7 @@ pub mod model_with_string_namespace_definition {
 
 pub impl ModelWithStringNamespaceDefinition = model_with_string_namespace_definition::ModelWithStringNamespaceDefinitionImpl<ModelWithStringNamespace>;
 pub impl ModelWithStringNamespaceEntityDefinition = model_with_string_namespace_definition::ModelWithStringNamespaceDefinitionImpl<ModelWithStringNamespaceEntity>;
+pub impl ModelWithStringNamespaceValuesDefinition = model_with_string_namespace_definition::ModelWithStringNamespaceDefinitionImpl<ModelWithStringNamespaceValues>;
 
 pub impl ModelWithStringNamespaceModelParser of dojo::model::model::ModelParser<ModelWithStringNamespace>{
     fn serialize_keys(self: @ModelWithStringNamespace) -> Span<felt252> {
@@ -2192,6 +2237,9 @@ pub impl ModelWithStringNamespaceStore = dojo::model::model::ModelStoreImpl<Mode
 
 pub impl ModelWithStringNamespaceEntityImpl = dojo::model::entity::EntityImpl<ModelWithStringNamespaceEntity>;
 pub impl ModelWithStringNamespaceEntityStore = dojo::model::entity::EntityStoreImpl<ModelWithStringNamespaceEntity>;
+
+pub impl ModelWithStringNamespaceValuesImpl = dojo::model::values::ValuesImpl<ModelWithStringNamespaceValues>;
+pub impl ModelWithStringNamespaceValuesStore = dojo::model::values::ValuesStoreImpl<ModelWithStringNamespaceValues>;
 
 
 #[generate_trait]
@@ -2674,6 +2722,12 @@ pub struct PositionEntity {
 
 } 
 
+#[derive()]
+pub struct PositionValues {
+    pub v: Vec3,
+
+} 
+
 type PositionKeyType = felt252;
 
 pub impl PositionKeyParser of dojo::model::model::KeyParser<Position, PositionKeyType>{
@@ -2683,7 +2737,9 @@ pub impl PositionKeyParser of dojo::model::model::KeyParser<Position, PositionKe
     }
 }
 
-impl PositionEntityKey of dojo::model::entity::EntityKey<PositionEntity, PositionKeyType> {
+impl PositionEntityKey of dojo::utils::TypeLink<PositionEntity, PositionKeyType> {
+}
+impl PositionValuesKey of dojo::utils::TypeLink<PositionValues, PositionKeyType> {
 }
 
 // Impl to get the static definition of a model
@@ -2736,6 +2792,7 @@ pub mod position_definition {
 
 pub impl PositionDefinition = position_definition::PositionDefinitionImpl<Position>;
 pub impl PositionEntityDefinition = position_definition::PositionDefinitionImpl<PositionEntity>;
+pub impl PositionValuesDefinition = position_definition::PositionDefinitionImpl<PositionValues>;
 
 pub impl PositionModelParser of dojo::model::model::ModelParser<Position>{
     fn serialize_keys(self: @Position) -> Span<felt252> {
@@ -2770,6 +2827,9 @@ pub impl PositionStore = dojo::model::model::ModelStoreImpl<Position>;
 
 pub impl PositionEntityImpl = dojo::model::entity::EntityImpl<PositionEntity>;
 pub impl PositionEntityStore = dojo::model::entity::EntityStoreImpl<PositionEntity>;
+
+pub impl PositionValuesImpl = dojo::model::values::ValuesImpl<PositionValues>;
+pub impl PositionValuesStore = dojo::model::values::ValuesStoreImpl<PositionValues>;
 
 
 #[generate_trait]
@@ -3257,6 +3317,12 @@ pub struct PlayerEntity {
 
 } 
 
+#[derive()]
+pub struct PlayerValues {
+    pub name: felt252,
+
+} 
+
 type PlayerKeyType = (felt252, ContractAddress);
 
 pub impl PlayerKeyParser of dojo::model::model::KeyParser<Player, PlayerKeyType>{
@@ -3266,7 +3332,9 @@ pub impl PlayerKeyParser of dojo::model::model::KeyParser<Player, PlayerKeyType>
     }
 }
 
-impl PlayerEntityKey of dojo::model::entity::EntityKey<PlayerEntity, PlayerKeyType> {
+impl PlayerEntityKey of dojo::utils::TypeLink<PlayerEntity, PlayerKeyType> {
+}
+impl PlayerValuesKey of dojo::utils::TypeLink<PlayerValues, PlayerKeyType> {
 }
 
 // Impl to get the static definition of a model
@@ -3319,6 +3387,7 @@ pub mod player_definition {
 
 pub impl PlayerDefinition = player_definition::PlayerDefinitionImpl<Player>;
 pub impl PlayerEntityDefinition = player_definition::PlayerDefinitionImpl<PlayerEntity>;
+pub impl PlayerValuesDefinition = player_definition::PlayerDefinitionImpl<PlayerValues>;
 
 pub impl PlayerModelParser of dojo::model::model::ModelParser<Player>{
     fn serialize_keys(self: @Player) -> Span<felt252> {
@@ -3354,6 +3423,9 @@ pub impl PlayerStore = dojo::model::model::ModelStoreImpl<Player>;
 
 pub impl PlayerEntityImpl = dojo::model::entity::EntityImpl<PlayerEntity>;
 pub impl PlayerEntityStore = dojo::model::entity::EntityStoreImpl<PlayerEntity>;
+
+pub impl PlayerValuesImpl = dojo::model::values::ValuesImpl<PlayerValues>;
+pub impl PlayerValuesStore = dojo::model::values::ValuesStoreImpl<PlayerValues>;
 
 
 #[generate_trait]
@@ -3851,6 +3923,13 @@ pub y: Array<u8>,
 
 } 
 
+#[derive()]
+pub struct ModelWithSimpleArrayValues {
+    pub x: u16,
+pub y: Array<u8>,
+
+} 
+
 type ModelWithSimpleArrayKeyType = ContractAddress;
 
 pub impl ModelWithSimpleArrayKeyParser of dojo::model::model::KeyParser<ModelWithSimpleArray, ModelWithSimpleArrayKeyType>{
@@ -3860,7 +3939,9 @@ pub impl ModelWithSimpleArrayKeyParser of dojo::model::model::KeyParser<ModelWit
     }
 }
 
-impl ModelWithSimpleArrayEntityKey of dojo::model::entity::EntityKey<ModelWithSimpleArrayEntity, ModelWithSimpleArrayKeyType> {
+impl ModelWithSimpleArrayEntityKey of dojo::utils::TypeLink<ModelWithSimpleArrayEntity, ModelWithSimpleArrayKeyType> {
+}
+impl ModelWithSimpleArrayValuesKey of dojo::utils::TypeLink<ModelWithSimpleArrayValues, ModelWithSimpleArrayKeyType> {
 }
 
 // Impl to get the static definition of a model
@@ -3913,6 +3994,7 @@ pub mod model_with_simple_array_definition {
 
 pub impl ModelWithSimpleArrayDefinition = model_with_simple_array_definition::ModelWithSimpleArrayDefinitionImpl<ModelWithSimpleArray>;
 pub impl ModelWithSimpleArrayEntityDefinition = model_with_simple_array_definition::ModelWithSimpleArrayDefinitionImpl<ModelWithSimpleArrayEntity>;
+pub impl ModelWithSimpleArrayValuesDefinition = model_with_simple_array_definition::ModelWithSimpleArrayDefinitionImpl<ModelWithSimpleArrayValues>;
 
 pub impl ModelWithSimpleArrayModelParser of dojo::model::model::ModelParser<ModelWithSimpleArray>{
     fn serialize_keys(self: @ModelWithSimpleArray) -> Span<felt252> {
@@ -3949,6 +4031,9 @@ pub impl ModelWithSimpleArrayStore = dojo::model::model::ModelStoreImpl<ModelWit
 
 pub impl ModelWithSimpleArrayEntityImpl = dojo::model::entity::EntityImpl<ModelWithSimpleArrayEntity>;
 pub impl ModelWithSimpleArrayEntityStore = dojo::model::entity::EntityStoreImpl<ModelWithSimpleArrayEntity>;
+
+pub impl ModelWithSimpleArrayValuesImpl = dojo::model::values::ValuesImpl<ModelWithSimpleArrayValues>;
+pub impl ModelWithSimpleArrayValuesStore = dojo::model::values::ValuesStoreImpl<ModelWithSimpleArrayValues>;
 
 
 #[generate_trait]
@@ -4458,6 +4543,13 @@ pub y: ByteArray,
 
 } 
 
+#[derive()]
+pub struct ModelWithByteArrayValues {
+    pub x: u16,
+pub y: ByteArray,
+
+} 
+
 type ModelWithByteArrayKeyType = ContractAddress;
 
 pub impl ModelWithByteArrayKeyParser of dojo::model::model::KeyParser<ModelWithByteArray, ModelWithByteArrayKeyType>{
@@ -4467,7 +4559,9 @@ pub impl ModelWithByteArrayKeyParser of dojo::model::model::KeyParser<ModelWithB
     }
 }
 
-impl ModelWithByteArrayEntityKey of dojo::model::entity::EntityKey<ModelWithByteArrayEntity, ModelWithByteArrayKeyType> {
+impl ModelWithByteArrayEntityKey of dojo::utils::TypeLink<ModelWithByteArrayEntity, ModelWithByteArrayKeyType> {
+}
+impl ModelWithByteArrayValuesKey of dojo::utils::TypeLink<ModelWithByteArrayValues, ModelWithByteArrayKeyType> {
 }
 
 // Impl to get the static definition of a model
@@ -4520,6 +4614,7 @@ pub mod model_with_byte_array_definition {
 
 pub impl ModelWithByteArrayDefinition = model_with_byte_array_definition::ModelWithByteArrayDefinitionImpl<ModelWithByteArray>;
 pub impl ModelWithByteArrayEntityDefinition = model_with_byte_array_definition::ModelWithByteArrayDefinitionImpl<ModelWithByteArrayEntity>;
+pub impl ModelWithByteArrayValuesDefinition = model_with_byte_array_definition::ModelWithByteArrayDefinitionImpl<ModelWithByteArrayValues>;
 
 pub impl ModelWithByteArrayModelParser of dojo::model::model::ModelParser<ModelWithByteArray>{
     fn serialize_keys(self: @ModelWithByteArray) -> Span<felt252> {
@@ -4556,6 +4651,9 @@ pub impl ModelWithByteArrayStore = dojo::model::model::ModelStoreImpl<ModelWithB
 
 pub impl ModelWithByteArrayEntityImpl = dojo::model::entity::EntityImpl<ModelWithByteArrayEntity>;
 pub impl ModelWithByteArrayEntityStore = dojo::model::entity::EntityStoreImpl<ModelWithByteArrayEntity>;
+
+pub impl ModelWithByteArrayValuesImpl = dojo::model::values::ValuesImpl<ModelWithByteArrayValues>;
+pub impl ModelWithByteArrayValuesStore = dojo::model::values::ValuesStoreImpl<ModelWithByteArrayValues>;
 
 
 #[generate_trait]
@@ -5069,6 +5167,13 @@ pub y: Array<Vec3>,
 
 } 
 
+#[derive()]
+pub struct ModelWithComplexArrayValues {
+    pub x: u16,
+pub y: Array<Vec3>,
+
+} 
+
 type ModelWithComplexArrayKeyType = ContractAddress;
 
 pub impl ModelWithComplexArrayKeyParser of dojo::model::model::KeyParser<ModelWithComplexArray, ModelWithComplexArrayKeyType>{
@@ -5078,7 +5183,9 @@ pub impl ModelWithComplexArrayKeyParser of dojo::model::model::KeyParser<ModelWi
     }
 }
 
-impl ModelWithComplexArrayEntityKey of dojo::model::entity::EntityKey<ModelWithComplexArrayEntity, ModelWithComplexArrayKeyType> {
+impl ModelWithComplexArrayEntityKey of dojo::utils::TypeLink<ModelWithComplexArrayEntity, ModelWithComplexArrayKeyType> {
+}
+impl ModelWithComplexArrayValuesKey of dojo::utils::TypeLink<ModelWithComplexArrayValues, ModelWithComplexArrayKeyType> {
 }
 
 // Impl to get the static definition of a model
@@ -5131,6 +5238,7 @@ pub mod model_with_complex_array_definition {
 
 pub impl ModelWithComplexArrayDefinition = model_with_complex_array_definition::ModelWithComplexArrayDefinitionImpl<ModelWithComplexArray>;
 pub impl ModelWithComplexArrayEntityDefinition = model_with_complex_array_definition::ModelWithComplexArrayDefinitionImpl<ModelWithComplexArrayEntity>;
+pub impl ModelWithComplexArrayValuesDefinition = model_with_complex_array_definition::ModelWithComplexArrayDefinitionImpl<ModelWithComplexArrayValues>;
 
 pub impl ModelWithComplexArrayModelParser of dojo::model::model::ModelParser<ModelWithComplexArray>{
     fn serialize_keys(self: @ModelWithComplexArray) -> Span<felt252> {
@@ -5167,6 +5275,9 @@ pub impl ModelWithComplexArrayStore = dojo::model::model::ModelStoreImpl<ModelWi
 
 pub impl ModelWithComplexArrayEntityImpl = dojo::model::entity::EntityImpl<ModelWithComplexArrayEntity>;
 pub impl ModelWithComplexArrayEntityStore = dojo::model::entity::EntityStoreImpl<ModelWithComplexArrayEntity>;
+
+pub impl ModelWithComplexArrayValuesImpl = dojo::model::values::ValuesImpl<ModelWithComplexArrayValues>;
+pub impl ModelWithComplexArrayValuesStore = dojo::model::values::ValuesStoreImpl<ModelWithComplexArrayValues>;
 
 
 #[generate_trait]
@@ -5687,6 +5798,13 @@ pub y: (u8, u16, u32),
 
 } 
 
+#[derive()]
+pub struct ModelWithTupleValues {
+    pub x: u16,
+pub y: (u8, u16, u32),
+
+} 
+
 type ModelWithTupleKeyType = ContractAddress;
 
 pub impl ModelWithTupleKeyParser of dojo::model::model::KeyParser<ModelWithTuple, ModelWithTupleKeyType>{
@@ -5696,7 +5814,9 @@ pub impl ModelWithTupleKeyParser of dojo::model::model::KeyParser<ModelWithTuple
     }
 }
 
-impl ModelWithTupleEntityKey of dojo::model::entity::EntityKey<ModelWithTupleEntity, ModelWithTupleKeyType> {
+impl ModelWithTupleEntityKey of dojo::utils::TypeLink<ModelWithTupleEntity, ModelWithTupleKeyType> {
+}
+impl ModelWithTupleValuesKey of dojo::utils::TypeLink<ModelWithTupleValues, ModelWithTupleKeyType> {
 }
 
 // Impl to get the static definition of a model
@@ -5749,6 +5869,7 @@ pub mod model_with_tuple_definition {
 
 pub impl ModelWithTupleDefinition = model_with_tuple_definition::ModelWithTupleDefinitionImpl<ModelWithTuple>;
 pub impl ModelWithTupleEntityDefinition = model_with_tuple_definition::ModelWithTupleDefinitionImpl<ModelWithTupleEntity>;
+pub impl ModelWithTupleValuesDefinition = model_with_tuple_definition::ModelWithTupleDefinitionImpl<ModelWithTupleValues>;
 
 pub impl ModelWithTupleModelParser of dojo::model::model::ModelParser<ModelWithTuple>{
     fn serialize_keys(self: @ModelWithTuple) -> Span<felt252> {
@@ -5785,6 +5906,9 @@ pub impl ModelWithTupleStore = dojo::model::model::ModelStoreImpl<ModelWithTuple
 
 pub impl ModelWithTupleEntityImpl = dojo::model::entity::EntityImpl<ModelWithTupleEntity>;
 pub impl ModelWithTupleEntityStore = dojo::model::entity::EntityStoreImpl<ModelWithTupleEntity>;
+
+pub impl ModelWithTupleValuesImpl = dojo::model::values::ValuesImpl<ModelWithTupleValues>;
+pub impl ModelWithTupleValuesStore = dojo::model::values::ValuesStoreImpl<ModelWithTupleValues>;
 
 
 #[generate_trait]
@@ -6314,6 +6438,13 @@ pub y: (u8, Vec3, u32),
 
 } 
 
+#[derive()]
+pub struct ModelWithTupleNoPrimitivesValues {
+    pub x: u16,
+pub y: (u8, Vec3, u32),
+
+} 
+
 type ModelWithTupleNoPrimitivesKeyType = ContractAddress;
 
 pub impl ModelWithTupleNoPrimitivesKeyParser of dojo::model::model::KeyParser<ModelWithTupleNoPrimitives, ModelWithTupleNoPrimitivesKeyType>{
@@ -6323,7 +6454,9 @@ pub impl ModelWithTupleNoPrimitivesKeyParser of dojo::model::model::KeyParser<Mo
     }
 }
 
-impl ModelWithTupleNoPrimitivesEntityKey of dojo::model::entity::EntityKey<ModelWithTupleNoPrimitivesEntity, ModelWithTupleNoPrimitivesKeyType> {
+impl ModelWithTupleNoPrimitivesEntityKey of dojo::utils::TypeLink<ModelWithTupleNoPrimitivesEntity, ModelWithTupleNoPrimitivesKeyType> {
+}
+impl ModelWithTupleNoPrimitivesValuesKey of dojo::utils::TypeLink<ModelWithTupleNoPrimitivesValues, ModelWithTupleNoPrimitivesKeyType> {
 }
 
 // Impl to get the static definition of a model
@@ -6376,6 +6509,7 @@ pub mod model_with_tuple_no_primitives_definition {
 
 pub impl ModelWithTupleNoPrimitivesDefinition = model_with_tuple_no_primitives_definition::ModelWithTupleNoPrimitivesDefinitionImpl<ModelWithTupleNoPrimitives>;
 pub impl ModelWithTupleNoPrimitivesEntityDefinition = model_with_tuple_no_primitives_definition::ModelWithTupleNoPrimitivesDefinitionImpl<ModelWithTupleNoPrimitivesEntity>;
+pub impl ModelWithTupleNoPrimitivesValuesDefinition = model_with_tuple_no_primitives_definition::ModelWithTupleNoPrimitivesDefinitionImpl<ModelWithTupleNoPrimitivesValues>;
 
 pub impl ModelWithTupleNoPrimitivesModelParser of dojo::model::model::ModelParser<ModelWithTupleNoPrimitives>{
     fn serialize_keys(self: @ModelWithTupleNoPrimitives) -> Span<felt252> {
@@ -6412,6 +6546,9 @@ pub impl ModelWithTupleNoPrimitivesStore = dojo::model::model::ModelStoreImpl<Mo
 
 pub impl ModelWithTupleNoPrimitivesEntityImpl = dojo::model::entity::EntityImpl<ModelWithTupleNoPrimitivesEntity>;
 pub impl ModelWithTupleNoPrimitivesEntityStore = dojo::model::entity::EntityStoreImpl<ModelWithTupleNoPrimitivesEntity>;
+
+pub impl ModelWithTupleNoPrimitivesValuesImpl = dojo::model::values::ValuesImpl<ModelWithTupleNoPrimitivesValues>;
+pub impl ModelWithTupleNoPrimitivesValuesStore = dojo::model::values::ValuesStoreImpl<ModelWithTupleNoPrimitivesValues>;
 
 
 #[generate_trait]
@@ -11810,6 +11947,26 @@ error: Expected args.
 ^************************^
 
 error: Expected args.
+ --> /tmp/plugin_test/model/src/lib.cairo:51:1
+#[dojo::model(version: 0)]
+^************************^
+
+error: Expected args.
+ --> /tmp/plugin_test/model/src/lib.cairo:51:1
+#[dojo::model(version: 0)]
+^************************^
+
+error: Expected args.
+ --> /tmp/plugin_test/model/src/lib.cairo:58:1
+#[dojo::model(namespace: 'MyNamespace')]
+^**************************************^
+
+error: Expected args.
+ --> /tmp/plugin_test/model/src/lib.cairo:58:1
+#[dojo::model(namespace: 'MyNamespace')]
+^**************************************^
+
+error: Expected args.
  --> /tmp/plugin_test/model/src/lib.cairo:58:1
 #[dojo::model(namespace: 'MyNamespace')]
 ^**************************************^
@@ -11827,6 +11984,26 @@ error: Expected args.
 error: Expected args.
  --> /tmp/plugin_test/model/src/lib.cairo:65:1
 #[dojo::model(namespace: 'my_namespace')]
+^***************************************^
+
+error: Expected args.
+ --> /tmp/plugin_test/model/src/lib.cairo:65:1
+#[dojo::model(namespace: 'my_namespace')]
+^***************************************^
+
+error: Expected args.
+ --> /tmp/plugin_test/model/src/lib.cairo:65:1
+#[dojo::model(namespace: 'my_namespace')]
+^***************************************^
+
+error: Expected args.
+ --> /tmp/plugin_test/model/src/lib.cairo:72:1
+#[dojo::model(namespace: "my_namespace")]
+^***************************************^
+
+error: Expected args.
+ --> /tmp/plugin_test/model/src/lib.cairo:72:1
+#[dojo::model(namespace: "my_namespace")]
 ^***************************************^
 
 error: Expected args.
@@ -11846,6 +12023,26 @@ error: Expected args.
 
 error: Expected args.
  --> /tmp/plugin_test/model/src/lib.cairo:79:1
+#[dojo::model]
+^************^
+
+error: Expected args.
+ --> /tmp/plugin_test/model/src/lib.cairo:79:1
+#[dojo::model]
+^************^
+
+error: Expected args.
+ --> /tmp/plugin_test/model/src/lib.cairo:79:1
+#[dojo::model]
+^************^
+
+error: Expected args.
+ --> /tmp/plugin_test/model/src/lib.cairo:103:1
+#[dojo::model]
+^************^
+
+error: Expected args.
+ --> /tmp/plugin_test/model/src/lib.cairo:103:1
 #[dojo::model]
 ^************^
 
@@ -11870,6 +12067,26 @@ error: Expected args.
 ^************^
 
 error: Expected args.
+ --> /tmp/plugin_test/model/src/lib.cairo:115:1
+#[dojo::model]
+^************^
+
+error: Expected args.
+ --> /tmp/plugin_test/model/src/lib.cairo:115:1
+#[dojo::model]
+^************^
+
+error: Expected args.
+ --> /tmp/plugin_test/model/src/lib.cairo:123:1
+#[dojo::model]
+^************^
+
+error: Expected args.
+ --> /tmp/plugin_test/model/src/lib.cairo:123:1
+#[dojo::model]
+^************^
+
+error: Expected args.
  --> /tmp/plugin_test/model/src/lib.cairo:123:1
 #[dojo::model]
 ^************^
@@ -11890,12 +12107,42 @@ error: Expected args.
 ^************^
 
 error: Expected args.
+ --> /tmp/plugin_test/model/src/lib.cairo:131:1
+#[dojo::model]
+^************^
+
+error: Expected args.
+ --> /tmp/plugin_test/model/src/lib.cairo:131:1
+#[dojo::model]
+^************^
+
+error: Expected args.
  --> /tmp/plugin_test/model/src/lib.cairo:139:1
 #[dojo::model]
 ^************^
 
 error: Expected args.
  --> /tmp/plugin_test/model/src/lib.cairo:139:1
+#[dojo::model]
+^************^
+
+error: Expected args.
+ --> /tmp/plugin_test/model/src/lib.cairo:139:1
+#[dojo::model]
+^************^
+
+error: Expected args.
+ --> /tmp/plugin_test/model/src/lib.cairo:139:1
+#[dojo::model]
+^************^
+
+error: Expected args.
+ --> /tmp/plugin_test/model/src/lib.cairo:147:1
+#[dojo::model]
+^************^
+
+error: Expected args.
+ --> /tmp/plugin_test/model/src/lib.cairo:147:1
 #[dojo::model]
 ^************^
 

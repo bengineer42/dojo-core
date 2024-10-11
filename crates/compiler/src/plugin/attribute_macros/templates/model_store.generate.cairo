@@ -73,7 +73,7 @@ pub mod $model_type_snake$_definition {
 
 pub impl $model_type$Definition = $model_type_snake$_definition::$model_type$DefinitionImpl<$model_type$>;
 pub impl $model_type$EntityDefinition = $model_type_snake$_definition::$model_type$DefinitionImpl<$model_type$Entity>;
-pub impl $model_type$ValuesDefinition = $model_name_snake$_definition::$model_type$DefinitionImpl<$model_type$Values>;
+pub impl $model_type$ValuesDefinition = $model_type_snake$_definition::$model_type$DefinitionImpl<$model_type$Values>;
 
 pub impl $model_type$ModelParser of dojo::model::model::ModelParser<$model_type$>{
     fn serialize_keys(self: @$model_type$) -> Span<felt252> {

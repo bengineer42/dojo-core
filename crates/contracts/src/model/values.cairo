@@ -1,5 +1,5 @@
 use dojo::{
-    meta::{Layout}, model::{ModelAttributes, attributes::ModelIndex},
+    meta::{Layout}, model::{ModelDefinition, ModelIndex},
     world::{IWorldDispatcher, IWorldDispatcherTrait},
     utils::{serialize_inline, deserialize_unwrap, TypeLink, entity_id_from_key}
 };
@@ -34,7 +34,7 @@ pub trait ValuesStore<V> {
     fn update_values_from_id(self: IWorldDispatcher, entity_id: felt252, values: @V);
 }
 
-pub impl ValuesImpl<V, +Serde<V>, +ModelAttributes<V>> of Values<V> {
+pub impl ValuesImpl<V, +Serde<V>, +ModelDefinition<V>> of Values<V> {
     fn serialize(self: @V) -> Span<felt252> {
         serialize_inline(self)
     }
@@ -42,34 +42,34 @@ pub impl ValuesImpl<V, +Serde<V>, +ModelAttributes<V>> of Values<V> {
         deserialize_unwrap(values)
     }
     fn name() -> ByteArray {
-        ModelAttributes::<V>::name()
+        ModelDefinition::<V>::name()
     }
     fn namespace() -> ByteArray {
-        ModelAttributes::<V>::namespace()
+        ModelDefinition::<V>::namespace()
     }
     fn tag() -> ByteArray {
-        ModelAttributes::<V>::tag()
+        ModelDefinition::<V>::tag()
     }
     fn version() -> u8 {
-        ModelAttributes::<V>::version()
+        ModelDefinition::<V>::version()
     }
     fn selector() -> felt252 {
-        ModelAttributes::<V>::selector()
+        ModelDefinition::<V>::selector()
     }
     fn layout() -> Layout {
-        ModelAttributes::<V>::layout()
+        ModelDefinition::<V>::layout()
     }
     fn name_hash() -> felt252 {
-        ModelAttributes::<V>::name_hash()
+        ModelDefinition::<V>::name_hash()
     }
     fn namespace_hash() -> felt252 {
-        ModelAttributes::<V>::namespace_hash()
+        ModelDefinition::<V>::namespace_hash()
     }
     fn instance_selector(self: @V) -> felt252 {
-        ModelAttributes::<V>::selector()
+        ModelDefinition::<V>::selector()
     }
     fn instance_layout(self: @V) -> Layout {
-        ModelAttributes::<V>::layout()
+        ModelDefinition::<V>::layout()
     }
 }
 
