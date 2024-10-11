@@ -6,7 +6,6 @@ pub struct $model_type$Entity {
 
 #[derive($derive_tags$)]
 pub struct $model_type$Values {
-    __id: felt252, // private field
     $members_values$
 } 
 
