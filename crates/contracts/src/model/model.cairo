@@ -1,9 +1,7 @@
-use starknet::SyscallResult;
-
 use dojo::{
-    world::{IWorldDispatcher, IWorldDispatcherTrait}, utils::{Descriptor, DescriptorTrait},
-    meta::{Layout, introspect::Ty}, model::{ModelDefinition, ModelIndex, members::MemberStore},
-    utils::{entity_id_from_key, serialize_inline, deserialize_unwrap, entity_id_from_keys}
+    world::{IWorldDispatcher, IWorldDispatcherTrait},
+    meta::{Layout, introspect::Ty, layout::compute_packed_size}, model::{ModelDefinition, ModelDef, ModelIndex, members::MemberStore},
+    utils::{entity_id_from_key, serialize_inline, entity_id_from_keys}
 };
 
 
@@ -72,11 +70,18 @@ pub trait Model<M> {
     fn tag() -> ByteArray;
     fn version() -> u8;
     fn selector() -> felt252;
-    fn layout() -> Layout;
     fn name_hash() -> felt252;
     fn namespace_hash() -> felt252;
+
+    fn schema() -> Ty;
+    fn layout() -> Layout;
+    fn unpacked_size() -> Option<usize>;
+    fn packed_size() -> Option<usize>;
+
     fn instance_selector(self: @M) -> felt252;
     fn instance_layout(self: @M) -> Layout;
+
+    fn definition() -> ModelDef;
 }
 
 
@@ -108,10 +113,10 @@ pub trait ModelStore<M> {
     fn delete(self: IWorldDispatcher, model: @M);
     fn delete_from_key<K, +Drop<K>, +Serde<K>>(self: IWorldDispatcher, key: K);
     fn get_member<T, K, +MemberStore<M, T>, +Drop<T>, +Drop<K>, +Serde<K>>(
-        self: @IWorldDispatcher, member_id: felt252, key: K
+        self: @IWorldDispatcher, key: K, member_id: felt252
     ) -> T;
     fn update_member<T, K, +MemberStore<M, T>, +Drop<T>, +Drop<K>, +Serde<K>>(
-        self: IWorldDispatcher, member_id: felt252, key: K, value: T
+        self: IWorldDispatcher, key: K, member_id: felt252, value: T
     );
 }
 
@@ -151,20 +156,46 @@ pub impl ModelImpl<M, +ModelParser<M>, +ModelDefinition<M>, +Serde<M>> of Model<
     fn selector() -> felt252 {
         ModelDefinition::<M>::selector()
     }
-    fn layout() -> Layout {
-        ModelDefinition::<M>::layout()
-    }
     fn name_hash() -> felt252 {
         ModelDefinition::<M>::name_hash()
     }
     fn namespace_hash() -> felt252 {
         ModelDefinition::<M>::namespace_hash()
     }
+
+    fn layout() -> Layout {
+        ModelDefinition::<M>::layout()
+    }
+    fn schema() -> Ty {
+        ModelDefinition::<M>::schema()
+    }
+    fn unpacked_size() -> Option<usize> {
+        ModelDefinition::<M>::size()
+    }
+    fn packed_size() -> Option<usize> {
+        compute_packed_size(ModelDefinition::<M>::layout())
+    }
+    
     fn instance_selector(self: @M) -> felt252 {
         ModelDefinition::<M>::selector()
     }
     fn instance_layout(self: @M) -> Layout {
         ModelDefinition::<M>::layout()
+    }
+    
+    fn definition() -> ModelDef {
+        ModelDef{
+            name: Self::name(),
+            namespace: Self::namespace(),
+            version: Self::version(),
+            selector: Self::selector(),
+            name_hash: Self::name_hash(),
+            namespace_hash: Self::namespace_hash(),
+            layout: Self::layout(),
+            schema: Self::schema(),
+            packed_size: Self::packed_size(),
+            unpacked_size: Self::unpacked_size()
+        }
     }
 }
 
@@ -213,15 +244,15 @@ pub impl ModelStoreImpl<M, +Model<M>, +Drop<M>> of ModelStore<M> {
     }
 
     fn get_member<T, K, +MemberStore<M, T>, +Drop<T>, +Drop<K>, +Serde<K>>(
-        self: @IWorldDispatcher, member_id: felt252, key: K
+        self: @IWorldDispatcher, key: K, member_id: felt252
     ) -> T {
-        MemberStore::<M, T>::get_member(self, member_id, entity_id_from_key::<K>(@key))
+        MemberStore::<M, T>::get_member(self, entity_id_from_key::<K>(@key), member_id)
     }
 
     fn update_member<T, K, +MemberStore<M, T>, +Drop<T>, +Drop<K>, +Serde<K>>(
-        self: IWorldDispatcher, member_id: felt252, key: K, value: T
+        self: IWorldDispatcher, key: K, member_id: felt252, value: T
     ) {
-        MemberStore::<M, T>::update_member(self, member_id, entity_id_from_key::<K>(@key), value);
+        MemberStore::<M, T>::update_member(self, entity_id_from_key::<K>(@key), member_id, value);
     }
 }
 

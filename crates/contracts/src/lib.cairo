@@ -10,7 +10,7 @@ pub mod contract {
 
 pub mod event {
     pub mod event;
-    pub use event::{Event, IEvent, IEventDispatcher, IEventDispatcherTrait};
+    pub use event::{Event, EventDefinition, IEvent, IEventDispatcher, IEventDispatcherTrait};
 
     #[cfg(target: "test")]
     pub use event::{EventTest};
@@ -18,15 +18,17 @@ pub mod event {
 
 pub mod meta {
     pub mod introspect;
-    pub use introspect::Introspect;
+    pub use introspect::{Introspect, Ty};
 
     pub mod layout;
     pub use layout::{Layout, FieldLayout};
 }
 
 pub mod model {
+    pub mod component;
+
     pub mod definition;
-    pub use definition::{ModelIndex, ModelDefinition};
+    pub use definition::{ModelIndex, ModelDefinition, ModelDef};
 
     pub mod members;
     pub use members::{MemberStore};
@@ -45,7 +47,6 @@ pub mod model {
 
     pub mod metadata;
     pub use metadata::{ResourceMetadata, resource_metadata};
-    pub(crate) use metadata::{initial_address, initial_class_hash};
 
     #[cfg(target: "test")]
     pub use model::{ModelTest};
@@ -75,17 +76,28 @@ pub mod utils {
     #[cfg(target: "test")]
     pub mod test;
 
-    pub mod utils;
-    pub use utils::{
-        bytearray_hash, entity_id_from_keys, find_field_layout, find_model_field_layout, any_none,
-        sum, combine_key, selector_from_names, serialize_inline, deserialize_unwrap,
-        entity_id_from_key, TypeLink
-    };
-
     pub mod descriptor;
     pub use descriptor::{
         Descriptor, DescriptorTrait, IDescriptorDispatcher, IDescriptorDispatcherTrait
     };
+
+    pub mod hash;
+    pub use hash::{bytearray_hash, selector_from_names};
+
+    pub mod key;
+    pub use key::{entity_id_from_keys, combine_key, entity_id_from_key};
+
+    pub mod layout;
+    pub use layout::{find_field_layout, find_model_field_layout};
+
+    pub mod misc;
+    pub use misc::{any_none, sum, TypeLink};
+
+    pub mod naming;
+    pub use naming::is_name_valid;
+
+    pub mod serde;
+    pub use serde::{serialize_inline, deserialize_unwrap};
 }
 
 pub mod world {
@@ -113,6 +125,10 @@ mod tests {
         mod introspect;
     }
 
+    mod event {
+        mod event;
+    }
+
     mod model {
         mod model;
     }
@@ -133,5 +149,11 @@ mod tests {
         mod resources;
         mod world;
     }
-    mod utils;
+    mod utils {
+        mod hash;
+        mod key;
+        mod layout;
+        mod misc;
+        mod naming;
+    }
 }

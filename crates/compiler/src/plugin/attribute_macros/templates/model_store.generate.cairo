@@ -1,10 +1,10 @@
-#[derive($derive_tags$)]
+#[derive($entity_derive_attr_names$)]
 pub struct $model_type$Entity {
     __id: felt252, // private field
     $members_values$
 } 
 
-#[derive($derive_tags$)]
+#[derive($entity_derive_attr_names$)]
 pub struct $model_type$Values {
     $members_values$
 } 
@@ -28,6 +28,21 @@ pub mod $model_type_snake$_definition {
     use super::$model_type$;
     pub impl $model_type$DefinitionImpl<T> of dojo::model::ModelDefinition<T>{
         #[inline(always)]
+        fn name() -> ByteArray {
+            "$model_type$"
+        }
+        
+        #[inline(always)]
+        fn namespace() -> ByteArray {
+            "$model_namespace$"
+        }
+        
+        #[inline(always)]
+        fn tag() -> ByteArray {
+            "$model_tag$"
+        }
+
+        #[inline(always)]
         fn version() -> u8 {
             $model_version$
         }
@@ -46,25 +61,21 @@ pub mod $model_type_snake$_definition {
         fn namespace_hash() -> felt252 {
             $model_namespace_hash$
         }
-    
-        #[inline(always)]
-        fn name() -> ByteArray {
-            "$model_type$"
-        }
         
-        #[inline(always)]
-        fn namespace() -> ByteArray {
-            "$model_namespace$"
-        }
-        
-        #[inline(always)]
-        fn tag() -> ByteArray {
-            "$model_tag$"
-        }
     
         #[inline(always)]
         fn layout() -> dojo::meta::Layout {
             dojo::meta::Introspect::<$model_type$>::layout()
+        }
+
+        #[inline(always)]
+        fn schema() -> dojo::meta::introspect::Ty {
+            dojo::meta::Introspect::<$model_type$>::ty()
+        }
+
+        #[inline(always)]
+        fn size() -> Option<usize> {
+            dojo::meta::Introspect::<$model_type$>::size()
         }
     }
     
@@ -125,57 +136,12 @@ pub trait I$model_type$<T> {
 pub mod $model_type_snake$ {
     use super::$model_type$;
     use super::I$model_type$;
-    use super::$model_type$Definition;
-    use super::$model_type$ModelImpl;
+
     #[storage]
     struct Storage {}
 
     #[abi(embed_v0)]
-    impl DojoModelImpl of dojo::model::IModel<ContractState>{
-        fn name(self: @ContractState) -> ByteArray {
-            $model_type$Definition::name()
-        }
-
-        fn namespace(self: @ContractState) -> ByteArray {
-            $model_type$Definition::namespace()
-        }
-
-        fn tag(self: @ContractState) -> ByteArray {
-            $model_type$Definition::tag()
-        }
-
-        fn version(self: @ContractState) -> u8 {
-            $model_type$Definition::version()
-        }
-
-        fn selector(self: @ContractState) -> felt252 {
-            $model_type$Definition::selector()
-        }
-
-        fn name_hash(self: @ContractState) -> felt252 {
-            $model_type$Definition::name_hash()
-        }
-
-        fn namespace_hash(self: @ContractState) -> felt252 {
-            $model_type$Definition::namespace_hash()
-        }
-
-        fn unpacked_size(self: @ContractState) -> Option<usize> {
-            dojo::meta::Introspect::<$model_type$>::size()
-        }
-
-        fn packed_size(self: @ContractState) -> Option<usize> {
-            dojo::meta::layout::compute_packed_size($model_type$Definition::layout())
-        }
-
-        fn layout(self: @ContractState) -> dojo::meta::Layout {
-            $model_type$Definition::layout()
-        }
-
-        fn schema(self: @ContractState) -> dojo::meta::introspect::Ty {
-            dojo::meta::Introspect::<$model_type$>::ty()
-        }
-    }
+    impl DojoModelImpl = dojo::model::component::IModelImpl<ContractState, $model_type$>;
 
     #[abi(embed_v0)]
     impl $model_type$Impl of I$model_type$<ContractState>{
