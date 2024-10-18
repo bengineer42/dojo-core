@@ -148,7 +148,7 @@ pub trait IWorld<T> {
     ///
     /// * `Span<felt252>` - The serialized value of the model, zero initialized if not set.
     fn entity(
-        self: @T, model_selector: felt252, index: ModelIndex, layout: Layout
+        self: @T, namespace: felt252, model_selector: felt252, index: ModelIndex, layout: Layout
     ) -> Span<felt252>;
 
     /// Sets the model value for the given entity/member.
@@ -161,6 +161,7 @@ pub trait IWorld<T> {
     /// * `layout` - The memory layout of the model.
     fn set_entity(
         ref self: T,
+        namespace: felt252,
         model_selector: felt252,
         index: ModelIndex,
         values: Span<felt252>,
@@ -175,7 +176,9 @@ pub trait IWorld<T> {
     /// * `model_selector` - The selector of the model to be deleted.
     /// * `index` - The index of the entity/member to delete.
     /// * `layout` - The memory layout of the model.
-    fn delete_entity(ref self: T, model_selector: felt252, index: ModelIndex, layout: Layout);
+    fn delete_entity(
+        ref self: T, namespace: felt252, model_selector: felt252, index: ModelIndex, layout: Layout
+    );
 
     /// Returns true if the provided account has owner permission for the resource, false otherwise.
     ///

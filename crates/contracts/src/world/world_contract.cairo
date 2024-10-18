@@ -785,8 +785,19 @@ pub mod world {
         }
 
         fn entity(
-            self: @ContractState, model_selector: felt252, index: ModelIndex, layout: Layout
+            self: @ContractState,
+            namespace: felt252,
+            model_selector: felt252,
+            index: ModelIndex,
+            layout: Layout
         ) -> Span<felt252> {
+            // TODO: either modify the read_model_entity and read_model_member to take a namespace
+            // or add namespace to the model_selector or entity_id
+            let namespace: felt252 = if namespace.is_zero() {
+                get_caller_address().into()
+            } else {
+                namespace
+            };
             match index {
                 ModelIndex::Keys(keys) => {
                     let entity_id = entity_id_from_keys(keys);
@@ -807,6 +818,7 @@ pub mod world {
 
         fn set_entity(
             ref self: ContractState,
+            namespace: felt252,
             model_selector: felt252,
             index: ModelIndex,
             values: Span<felt252>,
@@ -823,7 +835,11 @@ pub mod world {
         }
 
         fn delete_entity(
-            ref self: ContractState, model_selector: felt252, index: ModelIndex, layout: Layout
+            ref self: ContractState,
+            namespace: felt252,
+            model_selector: felt252,
+            index: ModelIndex,
+            layout: Layout
         ) {
             if let Resource::Model((_, _)) = self.resources.read(model_selector) {
                 self.assert_caller_permissions(model_selector, Permission::Writer);
